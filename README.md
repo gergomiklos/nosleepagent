@@ -1,51 +1,42 @@
-# OpenLid
+# NoSleepAgent
 
-![OpenLid warning screen](demo.png)
+Keeps your Mac awake while your agents are working — close the lid and the job keeps running. Once they are idle, normal sleep comes back.
 
-**Don't close the laptop on Claude mid-thought.**
+## How it works
 
-You kick off a task, wander off, and reflexively shut the lid — killing the run.
-OpenLid stops you: start closing the lid while Claude Code is working and your
-screen goes **full-screen red** and the laptop **yells at you**. Claude idle? Total silence.
+Claude Code hooks stamp a "last activity" time on every prompt and tool call. A
+root daemon checks it every 30s:
 
-## Requirements
+- active in the last 10 min → `pmset disablesleep 1` (stay awake, lid open or closed)
+- idle → `pmset disablesleep 0` (sleep normally)
 
-A MacBook with a lid angle sensor — **14"/16" MacBook Pro, or MacBook Air M2
-(2022) and newer**. The M1 Air/Pro don't have it, so OpenLid can't help there.
+No UI, no state machine. Just a timestamp.
 
 ## Install
 
 ```bash
-git clone https://github.com/gergomiklos/openlid.git
-cd openlid
+git clone https://github.com/gergomiklos/nosleepagent.git
+cd nosleepagent
 ./install.sh
 ```
 
-That builds it, starts it at login, wires up the Claude Code hooks (with a
-backup of your settings), and adds an `/openlid` command. Restart any open Claude
-Code sessions and you're set.
+Wires up the hooks (backs up your settings), installs the daemon, adds a
+`/nosleep` command. Needs `sudo` (flipping `disablesleep` is root-only). Works on
+any Mac. Restart open Claude Code sessions afterward.
 
-## Use it
+## Use
 
-Nothing. It just runs.
+Nothing — it just runs. To turn it off: `./ctl.sh off` (`on` / `status`), or
+`/nosleep off` inside Claude Code.
 
-Need to mute it for a bit?
+## Uninstall
 
 ```bash
-./ctl.sh off     # | on | status
+./uninstall.sh
 ```
 
-or `/openlid off` right inside Claude Code.
-
-## Heads up
-
-- **Make sure your volume isn't zero** — OpenLid pushes it to max when it fires,
-  but be nice to yourself.
-- **Alarm going off when Claude's not even running?** A session probably got
-  killed mid-task. Reset it: `echo idle > ~/.claude/openlid.state`.
-- **Nothing happens on a supported Mac?** macOS may be blocking sensor access —
-  grant **Input Monitoring** in System Settings → Privacy & Security.
+Removes the daemon and re-enables normal sleep.
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Built for people who close their laptops too fast.
+MIT — see [LICENSE](LICENSE).

@@ -1,12 +1,17 @@
 #!/bin/bash
 set -euo pipefail
-LABEL="com.openlid.agent"
-PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+LABEL="com.nosleepagent.daemon"
+PLIST="/Library/LaunchDaemons/$LABEL.plist"
 
-launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
-rm -f "$PLIST"
-rm -f "$HOME/.claude/commands/openlid.md"
+echo "Removing the system daemon (requires sudo)…"
+# Booting out triggers the daemon's cleanup, which restores normal sleep.
+sudo launchctl bootout system "$PLIST" 2>/dev/null || true
+sudo rm -f "$PLIST"
+# Belt and suspenders: make sure sleep is re-enabled even if the daemon was gone.
+sudo pmset -a disablesleep 0 >/dev/null 2>&1 || true
 
-echo "Uninstalled ($LABEL) and removed the /openlid command."
-echo "The four hooks in ~/.claude/settings.json are left in place;"
-echo "remove them manually if you no longer want the state file updated."
+rm -f "$HOME/.claude/commands/nosleep.md"
+
+echo "Uninstalled ($LABEL) and removed the /nosleep command."
+echo "The activity hooks in ~/.claude/settings.json are left in place;"
+echo "remove the 'touch …/nosleep.activity' entries manually if you no longer want them."
