@@ -19,7 +19,7 @@ A MacBook with a lid angle sensor — **14"/16" MacBook Pro, or MacBook Air M2
 ## Install
 
 ```bash
-git clone https://github.com/<you>/openlid.git
+git clone https://github.com/gergomiklos/openlid.git
 cd openlid
 ./install.sh
 ```
