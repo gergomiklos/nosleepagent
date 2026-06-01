@@ -2,10 +2,12 @@
 
 Keeps your Mac awake while your agents are working — close the lid and the job keeps running. Once they are idle, normal sleep comes back.
 
+Works with **Claude Code** and **Codex**.
+
 ## How it works
 
-Claude Code hooks stamp a "last activity" time on every prompt and tool call. A
-root daemon checks it every 30s:
+Claude Code / Codex hooks stamp a "last activity" time on every prompt and tool
+call. A root daemon checks it every 30s:
 
 - active in the last 10 min → `pmset disablesleep 1` (stay awake, lid open or closed)
 - idle → `pmset disablesleep 0` (sleep normally)
@@ -20,9 +22,13 @@ cd nosleepagent
 ./install.sh
 ```
 
-Wires up the hooks (backs up your settings), installs the daemon, adds a
+Wires up the hooks for both Claude Code (`~/.claude/settings.json`) and Codex
+(`~/.codex/hooks.json`), backing up each first, installs the daemon, and adds a
 `/nosleep` command. Needs `sudo` (flipping `disablesleep` is root-only). Works on
-any Mac. Restart open Claude Code sessions afterward.
+any Mac.
+
+Afterward: restart open Claude Code sessions; in Codex, run `/hooks` and trust
+the new hooks.
 
 ## Use
 

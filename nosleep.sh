@@ -1,10 +1,10 @@
 #!/bin/bash
 # NoSleepAgent daemon — runs as root via a LaunchDaemon.
 #
-# Keeps the Mac awake (including with the lid closed) while a Claude Code
-# session has been active recently, then restores normal sleep once it goes
-# quiet. There is no state machine: the only thing stored is the time of the
-# last activity (the mtime of $ACTIVITY, touched by the Claude Code hooks).
+# Keeps the Mac awake (including with the lid closed) while a Claude Code or
+# Codex session has been active recently, then restores normal sleep once it
+# goes quiet. There is no state machine: the only thing stored is the time of
+# the last activity (the mtime of $ACTIVITY, touched by the agent hooks).
 #
 #   recent activity  -> pmset disablesleep 1  (stay awake, lid open or closed)
 #   gone quiet        -> pmset disablesleep 0  (sleep normally)

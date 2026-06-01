@@ -13,5 +13,8 @@ sudo pmset -a disablesleep 0 >/dev/null 2>&1 || true
 rm -f "$HOME/.claude/commands/nosleep.md"
 
 echo "Uninstalled ($LABEL) and removed the /nosleep command."
-echo "The activity hooks in ~/.claude/settings.json are left in place;"
-echo "remove the 'touch …/nosleep.activity' entries manually if you no longer want them."
+echo "The activity hooks are left in place in:"
+echo "  ~/.claude/settings.json   (Claude Code)"
+echo "  ~/.codex/hooks.json       (Codex)"
+echo "Remove the 'touch …/.nosleepagent/activity' entries manually if you no"
+echo "longer want them. State dir ~/.nosleepagent can be deleted too."

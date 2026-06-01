@@ -1,6 +1,6 @@
 #!/bin/bash
 # Toggle the NoSleepAgent master switch. Usage: ctl.sh [on|off|status]
-FLAG="$HOME/.claude/nosleep.enabled"
+FLAG="$HOME/.nosleepagent/enabled"
 case "${1:-status}" in
   on)  echo 1 > "$FLAG"; echo "NoSleepAgent: ON" ;;
   off) echo 0 > "$FLAG"; echo "NoSleepAgent: OFF (the Mac will sleep normally)" ;;
