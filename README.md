@@ -6,10 +6,7 @@
 
 You kick off a task, wander off, and reflexively shut the lid — killing the run.
 OpenLid stops you: start closing the lid while Claude Code is working and your
-screen goes **full-screen red** and the laptop **yells at you**. Claude idle?
-Close away, total silence.
-
-It's `submit → armed`, `done → safe`. That's the whole product.
+screen goes **full-screen red** and the laptop **yells at you**. Claude idle? Total silence.
 
 ## Requirements
 
