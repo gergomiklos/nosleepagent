@@ -1,0 +1,22 @@
+# Build output
+bin/
+*.o
+.build/
+DerivedData/
+*.dSYM/
+
+# Runtime
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# Editor / IDE
+*.swp
+*.swo
+.idea/
+.vscode/
+*.xcuserstate
+xcuserdata/
